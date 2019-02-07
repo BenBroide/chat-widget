@@ -35,6 +35,12 @@ const jsonTwo = {
   lng: -73.968116,
   showMap: false
 };
+
+const averages = {
+  avgDist: 9.168702231311544,
+  avgPoptimes: 42.583333333333336,
+  avgRating: 3.1166666666666667
+};
 class App extends Component {
   constructor() {
     super();
@@ -42,8 +48,8 @@ class App extends Component {
 
   componentDidMount() {
     toggleWidget();
-    renderCustomComponent(card, jsonOne);
-    renderCustomComponent(card, jsonTwo);
+    renderCustomComponent(card, { ...jsonOne, ...averages });
+    renderCustomComponent(card, { ...jsonTwo, ...averages });
   }
 
   handleNewUserMessage = message => {

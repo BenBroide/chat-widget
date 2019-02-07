@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-
+import Ratings from "./ratings";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
-import StarRate from "@material-ui/icons/StarRate";
+
 import WalkIcon from "@material-ui/icons/DirectionsWalk";
 import DriveIcon from "@material-ui/icons/DirectionsCar";
 import WatchIcon from "@material-ui/icons/WatchLater";
@@ -14,6 +14,7 @@ import HospitalIcon from "@material-ui/icons/LocalHospital";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -39,21 +40,71 @@ const styles = theme => ({
     backgroundColor: "#f7f5f2",
     borderRadius: "20px",
     boxShadow: "5px 5px 5px #dbcece",
-    margin: "15px"
+    margin: "15px",
+    maxWidth: "100%",
+    "- moz - transition": "all 0.3s",
+    "-webkit - transition": "all 0.3s",
+    transition: "all 0.3s"
   }
 });
 
 const LocationMarker = ({ text }) => (
-  <div>
+  <div
+    style={{
+      width: "25px",
+      borderRadius: "25px",
+      background: "#fff",
+      padding: "10px"
+    }}
+  >
     <HospitalIcon color="primary" />
-    {text}
+    {/* {text} */}
   </div>
 );
+
 class CenteredGrid extends Component {
   constructor(props) {
     super(props);
     console.log(this.props);
     this.state = { showMap: false };
+  }
+
+  getRatingText() {
+    let rating = this.props.rating;
+    let average = this.props.avgRating;
+    let text = "";
+    if (rating < average) {
+      text = "Below Average";
+    } else if (rating > average && rating < 0.7 * 5) {
+      text = "Above Average";
+    } else if (rating > 0.7 * 5 && rating < 0.9 * 5) {
+      text = "Great Ratings!";
+    } else if (rating > 0.9 * 5) {
+      text = "pepole's Choice!";
+    }
+    return text;
+  }
+
+  getDistanceText() {
+    let distance = this.props.distance;
+    let roundedDistance = Math.round(distance * 100) / 100;
+    let text = "";
+    if (distance < 0.2) {
+      text = `Walkable ${roundedDistance} mile`;
+    } else if (distance > 0.2 && distance < 1) {
+      text = `${roundedDistance} mile short drive`;
+    } else if (distance > 1) {
+      text = `${roundedDistance} mile drive`;
+    }
+    return text;
+  }
+
+  getDistanceIcon() {
+    let distance = this.props.distance;
+    if (distance < 1) {
+      return <WalkIcon />;
+    }
+    return <DriveIcon />;
   }
 
   render() {
@@ -95,40 +146,34 @@ class CenteredGrid extends Component {
                       </Typography>
                     </Grid>
 
-                    <Grid container>
-                      <Grid item>
-                        <StarRate color="secondary" />
-                        <StarRate />
-                        <StarRate />
-                        <StarRate />
-                        <StarRate />
+                    <Grid container style={{ marginBottom: "5px" }}>
+                      <Grid>
+                        <Ratings
+                          rating={this.props.rating}
+                          widgetDimensions="25px"
+                          widgetSpacings="3px"
+                        >
+                          <Ratings.Widget widgetRatedColor="blue" />
+                          <Ratings.Widget widgetRatedColor="blue" />
+                          <Ratings.Widget widgetRatedColor="blue" />
+                          <Ratings.Widget widgetRatedColor="blue" />
+                          <Ratings.Widget widgetRatedColor="blue" />
+                        </Ratings>
                       </Grid>
                       <Grid item>
                         <Typography variant="caption" inline={true}>
-                          Great Rating!
+                          {this.getRatingText()}
                         </Typography>
                       </Grid>
                     </Grid>
 
                     <Grid>
                       <Chip
-                        avatar={
-                          <Avatar>
-                            <WalkIcon />
-                          </Avatar>
-                        }
-                        label="Walking Distance"
+                        avatar={<Avatar>{this.getDistanceIcon()}</Avatar>}
+                        label={this.getDistanceText()}
                         className={this.props.classes.chip}
                       />
-                      {/* <Chip
-                        avatar={
-                          <Avatar>
-                            <DriveIcon />
-                          </Avatar>
-                        }
-                        label="Driving Distance"
-                        className={classes.chip}
-                      /> */}
+
                       <Chip
                         avatar={
                           <Avatar>
@@ -138,15 +183,6 @@ class CenteredGrid extends Component {
                         label="Typically crowded in this time"
                         className={this.props.classes.chip}
                       />
-                      {/* <Chip
-                        avatar={
-                          <Avatar>
-                            <WatchIcon />
-                          </Avatar>
-                        }
-                        label="Typically short wait in this time"
-                        className={classes.chip}
-                      /> */}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -167,7 +203,9 @@ class CenteredGrid extends Component {
                 className={this.props.classes.cardBg}
                 style={{ width: "100%", height: "300px" }}
               >
-                <Typography>Here is your direction:</Typography>
+                <Typography style={{ padding: "10px" }}>
+                  Here is your direction to <b>{this.props.name}</b>:
+                </Typography>
                 <GoogleMapReact
                   bootstrapURLKeys={{
                     key: "AIzaSyCfkZVfIFHmlQo5g9LTDw11k9NUgpyHVQk"
