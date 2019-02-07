@@ -201,27 +201,29 @@ class CenteredGrid extends Component {
                 md={8}
                 xs={12}
                 className={this.props.classes.cardBg}
-                style={{ width: "100%", height: "300px" }}
+                style={{ width: "100%", height: "320px" }}
               >
                 <Typography style={{ padding: "10px" }}>
                   Here is your direction to <b>{this.props.name}</b>:
                 </Typography>
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: "AIzaSyCfkZVfIFHmlQo5g9LTDw11k9NUgpyHVQk"
-                  }}
-                  defaultCenter={{
-                    lat: this.props.lat,
-                    lng: this.props.lng
-                  }}
-                  defaultZoom={13}
-                >
-                  <LocationMarker
-                    lat={this.props.lat}
-                    lng={this.props.lng}
-                    text={this.props.name}
-                  />
-                </GoogleMapReact>
+                <div style={{ width: "100%", height: "25vh" }}>
+                  <GoogleMapReact
+                    bootstrapURLKeys={{
+                      key: "AIzaSyCfkZVfIFHmlQo5g9LTDw11k9NUgpyHVQk"
+                    }}
+                    defaultCenter={{
+                      lat: this.props.lat,
+                      lng: this.props.lng
+                    }}
+                    defaultZoom={13}
+                  >
+                    <LocationMarker
+                      lat={this.props.lat}
+                      lng={this.props.lng}
+                      text={this.props.name}
+                    />
+                  </GoogleMapReact>
+                </div>
               </Grid>
             </Grid>
           </div>
