@@ -14,7 +14,7 @@ import HospitalIcon from "@material-ui/icons/LocalHospital";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import ChevronRight from "@material-ui/icons/ChevronRight";
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -132,7 +132,7 @@ class CenteredGrid extends Component {
                   />
                 </ButtonBase>
               </Grid>
-              <Grid item xs={12} sm container>
+              <Grid item xs={11} sm container>
                 <Grid item xs container direction="column" spacing={16}>
                   <Grid container>
                     <Grid item xs={12}>
@@ -187,10 +187,22 @@ class CenteredGrid extends Component {
                   </Grid>
                 </Grid>
               </Grid>
+              <Grid item>
+                <div style={{ display: "table", height: "100%" }}>
+                  <span
+                    style={{
+                      display: "table-cell",
+                      verticalAlign: "middle"
+                    }}
+                  >
+                    <ChevronRight fontSize="large" />
+                  </span>
+                </div>
+              </Grid>
             </Grid>
-            <Grid container item md={12} justify="center">
+            {/* <Grid container item md={12} justify="center">
               <ExpandMoreIcon fontSize="large" style={{ marginTop: "15px" }} />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
         {this.state.showMap && (

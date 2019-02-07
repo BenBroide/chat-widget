@@ -48,8 +48,8 @@ class App extends Component {
 
   componentDidMount() {
     toggleWidget();
-    //renderCustomComponent(card, { ...jsonOne, ...averages });
-    //renderCustomComponent(card, { ...jsonTwo, ...averages });
+    renderCustomComponent(card, { ...jsonOne, ...averages });
+    renderCustomComponent(card, { ...jsonTwo, ...averages });
   }
 
   handleNewUserMessage = message => {
