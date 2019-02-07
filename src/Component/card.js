@@ -216,7 +216,18 @@ class CenteredGrid extends Component {
                 style={{ width: "100%", height: "320px" }}
               >
                 <Typography style={{ padding: "10px" }}>
-                  Here is your direction to <b>{this.props.name}</b>:
+                  Here is your direction to{" "}
+                  <b>
+                    <a
+                      href={`https://maps.google.com/?q=${this.props.lat},${
+                        this.props.lng
+                      }`}
+                      target={"_blank"}
+                    >
+                      {this.props.name}
+                    </a>
+                  </b>
+                  :
                 </Typography>
                 <div style={{ width: "100%", height: "25vh" }}>
                   <GoogleMapReact
