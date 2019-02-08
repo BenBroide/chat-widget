@@ -14,6 +14,7 @@ import HospitalIcon from "@material-ui/icons/LocalHospital";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ContentLoader from "react-content-loader";
 
@@ -60,7 +61,8 @@ const styles = theme => ({
     backgroundColor: "#f7f5f2",
     borderRadius: "20px",
     boxShadow: "5px 5px 5px #dbcece",
-    margin: "15px",
+    marginBottom: "5px",
+    marginTop: "15px",
     maxWidth: "100%",
     "- moz - transition": "all 0.3s",
     "-webkit - transition": "all 0.3s",
@@ -163,7 +165,7 @@ class CenteredGrid extends Component {
                     />
                   </ButtonBase>
                 </Grid>
-                <Grid item xs={11} sm container>
+                <Grid item xs={12} sm container>
                   <Grid item xs container direction="column" spacing={16}>
                     <Grid container>
                       <Grid item xs={12}>
@@ -218,21 +220,22 @@ class CenteredGrid extends Component {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item>
-                  <div style={{ display: "table", height: "100%" }}>
-                    <span
-                      style={{
-                        display: "table-cell",
-                        verticalAlign: "middle"
-                      }}
-                    >
-                      <ChevronRight fontSize="large" />
-                    </span>
-                  </div>
-                </Grid>
               </Grid>
             )}
           </Grid>
+          {this.state.loading ? (
+            <div />
+          ) : (
+            <Grid container item justify="center">
+              <Grid>
+                {this.state.showMap ? (
+                  <ExpandLessIcon fontSize="large" />
+                ) : (
+                  <ExpandMoreIcon fontSize="large" />
+                )}
+              </Grid>
+            </Grid>
+          )}
         </Grid>
         {this.state.showMap && (
           <div>

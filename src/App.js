@@ -47,6 +47,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    //this.devMode();
+  }
+
+  // Dev mode, chat open and resutls loaded on mount
+  devMode() {
     toggleWidget();
     renderCustomComponent(card, { ...jsonOne, ...averages });
     renderCustomComponent(card, { ...jsonTwo, ...averages });
