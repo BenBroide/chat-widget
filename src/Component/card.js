@@ -46,7 +46,19 @@ const styles = theme => ({
   },
   image: {
     width: 128,
-    height: 128
+    height: 128,
+    [theme.breakpoints.down("xs")]: {
+      display: "none"
+    }
+  },
+  imageMobile: {
+    maxWidth: "100%",
+    padding: "6px",
+    borderRadius: "20px",
+    maxWidth: "100%",
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
   },
   img: {
     margin: "auto",
@@ -63,10 +75,7 @@ const styles = theme => ({
     boxShadow: "5px 5px 5px #dbcece",
     marginBottom: "5px",
     marginTop: "15px",
-    maxWidth: "100%",
-    "- moz - transition": "all 0.3s",
-    "-webkit - transition": "all 0.3s",
-    transition: "all 0.3s"
+    maxWidth: "100%"
   }
 });
 
@@ -172,6 +181,12 @@ class CenteredGrid extends Component {
                         <Typography variant="caption" align="right">
                           Closing Time : {this.props.closingTime}
                         </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <img
+                          className={this.props.classes.imageMobile}
+                          src="http://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
+                        />
                       </Grid>
                       <Grid item xs={12}>
                         <Typography gutterBottom variant="subheading">

@@ -47,7 +47,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //this.devMode();
+    this.devMode();
   }
 
   // Dev mode, chat open and resutls loaded on mount
