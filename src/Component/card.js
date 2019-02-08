@@ -15,6 +15,26 @@ import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRight from "@material-ui/icons/ChevronRight";
+import ContentLoader from "react-content-loader";
+
+const CardLoader = props => (
+  <ContentLoader
+    height={100}
+    width={400}
+    speed={2}
+    primaryColor="#cdcdcd"
+    secondaryColor="#ecebeb"
+    {...props}
+  >
+    <rect x="5" y="10" rx="4" ry="4" width="110" height="60" />
+
+    <rect x="140" y="15" rx="4" ry="4" width="200" height="12" />
+    <rect x="140" y="35" rx="3" ry="3" width="200" height="12" />
+    <rect x="140" y="55" rx="3" ry="3" width="200" height="12" />
+    <rect x="140" y="75" rx="3" ry="3" width="200" height="12" />
+  </ContentLoader>
+);
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -65,8 +85,16 @@ const LocationMarker = ({ text }) => (
 class CenteredGrid extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
-    this.state = { showMap: false };
+
+    this.state = { showMap: false, loading: true };
+    this.setLoaded();
+  }
+  setLoaded() {
+    setInterval(() => {
+      this.setState({
+        loading: false
+      });
+    }, 3000);
   }
 
   getRatingText() {
@@ -122,87 +150,88 @@ class CenteredGrid extends Component {
           justify="center"
         >
           <Grid item md={8} xs={12} className={this.props.classes.cardBg}>
-            <Grid container spacing={16}>
-              <Grid item>
-                <ButtonBase className={this.props.classes.image}>
-                  <img
-                    className={this.props.classes.img}
-                    alt="complex"
-                    src="http://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
-                  />
-                </ButtonBase>
-              </Grid>
-              <Grid item xs={11} sm container>
-                <Grid item xs container direction="column" spacing={16}>
-                  <Grid container>
-                    <Grid item xs={12}>
-                      <Typography variant="caption" align="right">
-                        Closing Time : {this.props.closingTime}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography gutterBottom variant="subheading">
-                        {this.props.name}
-                      </Typography>
-                    </Grid>
-
-                    <Grid container style={{ marginBottom: "5px" }}>
-                      <Grid>
-                        <Ratings
-                          rating={this.props.rating}
-                          widgetDimensions="25px"
-                          widgetSpacings="3px"
-                        >
-                          <Ratings.Widget widgetRatedColor="blue" />
-                          <Ratings.Widget widgetRatedColor="blue" />
-                          <Ratings.Widget widgetRatedColor="blue" />
-                          <Ratings.Widget widgetRatedColor="blue" />
-                          <Ratings.Widget widgetRatedColor="blue" />
-                        </Ratings>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="caption" inline={true}>
-                          {this.getRatingText()}
+            {this.state.loading ? (
+              <CardLoader />
+            ) : (
+              <Grid container spacing={16}>
+                <Grid item>
+                  <ButtonBase className={this.props.classes.image}>
+                    <img
+                      className={this.props.classes.img}
+                      alt="complex"
+                      src="http://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
+                    />
+                  </ButtonBase>
+                </Grid>
+                <Grid item xs={11} sm container>
+                  <Grid item xs container direction="column" spacing={16}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography variant="caption" align="right">
+                          Closing Time : {this.props.closingTime}
                         </Typography>
                       </Grid>
-                    </Grid>
+                      <Grid item xs={12}>
+                        <Typography gutterBottom variant="subheading">
+                          {this.props.name}
+                        </Typography>
+                      </Grid>
 
-                    <Grid>
-                      <Chip
-                        avatar={<Avatar>{this.getDistanceIcon()}</Avatar>}
-                        label={this.getDistanceText()}
-                        className={this.props.classes.chip}
-                      />
+                      <Grid container style={{ marginBottom: "5px" }}>
+                        <Grid>
+                          <Ratings
+                            rating={this.props.rating}
+                            widgetDimensions="25px"
+                            widgetSpacings="3px"
+                          >
+                            <Ratings.Widget widgetRatedColor="blue" />
+                            <Ratings.Widget widgetRatedColor="blue" />
+                            <Ratings.Widget widgetRatedColor="blue" />
+                            <Ratings.Widget widgetRatedColor="blue" />
+                            <Ratings.Widget widgetRatedColor="blue" />
+                          </Ratings>
+                        </Grid>
+                        <Grid item>
+                          <Typography variant="caption" inline={true}>
+                            {this.getRatingText()}
+                          </Typography>
+                        </Grid>
+                      </Grid>
 
-                      <Chip
-                        avatar={
-                          <Avatar>
-                            <WatchIcon />
-                          </Avatar>
-                        }
-                        label="Typically crowded in this time"
-                        className={this.props.classes.chip}
-                      />
+                      <Grid>
+                        <Chip
+                          avatar={<Avatar>{this.getDistanceIcon()}</Avatar>}
+                          label={this.getDistanceText()}
+                          className={this.props.classes.chip}
+                        />
+
+                        <Chip
+                          avatar={
+                            <Avatar>
+                              <WatchIcon />
+                            </Avatar>
+                          }
+                          label="Typically crowded in this time"
+                          className={this.props.classes.chip}
+                        />
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
+                <Grid item>
+                  <div style={{ display: "table", height: "100%" }}>
+                    <span
+                      style={{
+                        display: "table-cell",
+                        verticalAlign: "middle"
+                      }}
+                    >
+                      <ChevronRight fontSize="large" />
+                    </span>
+                  </div>
+                </Grid>
               </Grid>
-              <Grid item>
-                <div style={{ display: "table", height: "100%" }}>
-                  <span
-                    style={{
-                      display: "table-cell",
-                      verticalAlign: "middle"
-                    }}
-                  >
-                    <ChevronRight fontSize="large" />
-                  </span>
-                </div>
-              </Grid>
-            </Grid>
-            {/* <Grid container item md={12} justify="center">
-              <ExpandMoreIcon fontSize="large" style={{ marginTop: "15px" }} />
-            </Grid> */}
+            )}
           </Grid>
         </Grid>
         {this.state.showMap && (
