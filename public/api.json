@@ -1,0 +1,33 @@
+{
+  "jsonOne": {
+    "rating": 4.3,
+    "distance": 8.110389670687223,
+    "poptime": 45,
+    "closingTime": "9 pm",
+    "name": "UR Medicine Urgent Care – Greece",
+    "mongoID": "5c4f49c120dd2e22a9065ba3",
+    "score": 0.16864259707498816,
+    "lat": 40.768286,
+    "lng": -73.968116,
+    "showMap": false,
+    "image": "http://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
+  },
+  "jsonTwo": {
+    "rating": 2.5,
+    "distance": 6.065514763823993,
+    "poptime": 53,
+    "closingTime": "9 pm",
+    "name": "UR Medicine Urgent Care – Spencerport",
+    "mongoID": "5c4f4c5520dd2e22a9066826",
+    "score": 0.1675516687086668,
+    "lat": 40.768286,
+    "lng": -73.968116,
+    "showMap": false,
+    "image": "http://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
+  },
+  "averages": {
+    "avgDist": 9.168702231311544,
+    "avgPoptimes": 42.583333333333336,
+    "avgRating": 3.1166666666666667
+  }
+}

@@ -6,6 +6,7 @@ import Ratings from "./ratings";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
+import withWidth from "@material-ui/core/withWidth";
 
 import WalkIcon from "@material-ui/icons/DirectionsWalk";
 import DriveIcon from "@material-ui/icons/DirectionsCar";
@@ -96,16 +97,22 @@ const LocationMarker = ({ text }) => (
 class CenteredGrid extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { showMap: false, loading: true };
-    this.setLoaded();
+    console.log(props);
+    this.state = {
+      showMap: false,
+      loading: false
+    };
   }
-  setLoaded() {
-    setInterval(() => {
-      this.setState({
-        loading: false
-      });
-    }, 3000);
+
+  didComponentUpdate(nextProps) {
+    this.setLoading(nextProps.loadingObj.status);
+  }
+
+  setLoading(status) {
+    this.setState({
+      loading: status
+    });
+    console.log(status);
   }
 
   getRatingText() {
@@ -149,28 +156,40 @@ class CenteredGrid extends Component {
   render() {
     return (
       <div className={this.props.classes.root}>
-        <Grid
-          onClick={() => {
-            this.setState({
-              showMap: !this.state.showMap
-            });
-          }}
-          style={{ cursor: "pointer" }}
-          container
-          spacing={24}
-          justify="center"
-        >
-          <Grid item md={8} xs={12} className={this.props.classes.cardBg}>
-            {this.state.loading ? (
-              <CardLoader />
-            ) : (
+        {this.props.loading ? (
+          <div
+            style={{
+              width: this.props.width === "xs" ? "400px" : "500px",
+              margin: "0 auto"
+            }}
+          >
+            <Grid container>
+              <Grid item xs={12}>
+                <CardLoader />
+              </Grid>
+            </Grid>
+          </div>
+        ) : (
+          // </div>
+          <Grid
+            onClick={() => {
+              this.setState({
+                showMap: !this.state.showMap
+              });
+            }}
+            style={{ cursor: "pointer" }}
+            container
+            spacing={24}
+            justify="center"
+          >
+            <Grid item md={8} xs={12} className={this.props.classes.cardBg}>
               <Grid container spacing={16}>
                 <Grid item>
                   <ButtonBase className={this.props.classes.image}>
                     <img
                       className={this.props.classes.img}
                       alt="complex"
-                      src="http://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
+                      src={this.props.image}
                     />
                   </ButtonBase>
                 </Grid>
@@ -185,7 +204,7 @@ class CenteredGrid extends Component {
                       <Grid item xs={12}>
                         <img
                           className={this.props.classes.imageMobile}
-                          src="http://wowslider.com/sliders/demo-93/data1/images/sunset.jpg"
+                          src={this.props.image}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -236,11 +255,8 @@ class CenteredGrid extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-            )}
-          </Grid>
-          {this.state.loading ? (
-            <div />
-          ) : (
+            </Grid>
+
             <Grid container item justify="center">
               <Grid>
                 {this.state.showMap ? (
@@ -250,8 +266,8 @@ class CenteredGrid extends Component {
                 )}
               </Grid>
             </Grid>
-          )}
-        </Grid>
+          </Grid>
+        )}{" "}
         {this.state.showMap && (
           <div>
             <Grid container spacing={24} justify="center">
@@ -307,4 +323,4 @@ CenteredGrid.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(CenteredGrid);
+export default withWidth()(withStyles(styles)(CenteredGrid));
